@@ -91,9 +91,11 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
+    contentBase: paths.SRC,
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    port: 10000
   },
   performance: {
     hints: false
@@ -138,7 +140,7 @@ if (process.env.NODE_ENV === 'production') {
         return renderedRoute
       },
       renderer: new Renderer({
-        executablePath: "/Applications/Chromium.app/Contents/MacOS/Chromium"
+        executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
         // slowMo: 1000,
         // headless: false
       })
