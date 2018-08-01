@@ -8,7 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const localconfig = require('./.localconf');
+const localconfig = require('./localconf');
 
 const paths = {
   SRC: path.resolve(__dirname, './src'),
