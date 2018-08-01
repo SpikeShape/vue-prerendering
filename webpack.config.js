@@ -8,6 +8,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const localconfig = require('./.localconf');
+
 const paths = {
   SRC: path.resolve(__dirname, './src'),
   DIST: path.resolve(__dirname, './dist'),
@@ -95,7 +97,7 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
-    port: 10000
+    port: localconfig.devServerPort
   },
   performance: {
     hints: false
@@ -140,7 +142,7 @@ if (process.env.NODE_ENV === 'production') {
         return renderedRoute
       },
       renderer: new Renderer({
-        executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+        executablePath: localconfig.chromeExecutable
         // slowMo: 1000,
         // headless: false
       })
