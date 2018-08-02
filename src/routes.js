@@ -5,5 +5,5 @@ import NotFound from './pages/404.vue';
 export default {
   '/': Home,
   '/about': About,
-  'NOTFOUND': NotFound
+  '404': NotFound
 }

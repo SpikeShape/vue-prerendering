@@ -8,7 +8,7 @@ new Vue({
     ViewComponent () {
       const matchingView = routes[window.location.pathname.split('.html')[0]]; // remove .html
 
-      return matchingView ? matchingView : routes.NOTFOUND;
+      return matchingView ? matchingView : routes[404];
     }
   },
   render (h) {
