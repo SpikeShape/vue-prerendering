@@ -107,7 +107,7 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'production') {
   const Renderer = PrerenderSpaPlugin.PuppeteerRenderer;
-  const publicRoutes = require('./routes.static');
+  const publicRoutes = require('./src/routes.public');
 
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html

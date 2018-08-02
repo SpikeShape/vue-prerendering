@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import routes from './routes';
+import routes from './routes.private';
 import './components/main.css';
 
 new Vue({
