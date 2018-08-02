@@ -107,6 +107,7 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'production') {
   const Renderer = PrerenderSpaPlugin.PuppeteerRenderer;
+  const publicRoutes = require('./routes.static');
 
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
@@ -131,7 +132,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new PrerenderSpaPlugin({
       staticDir: paths.DIST,
-      routes: [ '/', '/about.html', '/contact.html'],
+      routes: publicRoutes,
       postProcess (renderedRoute) {
         // Remove /index.html from the output path if the dir name ends with a .html file extension.
         // For example: /dist/dir/special.html/index.html -> /dist/dir/special.html
