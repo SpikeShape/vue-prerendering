@@ -143,7 +143,7 @@ if (process.env.NODE_ENV === 'production') {
         return renderedRoute
       },
       renderer: new Renderer({
-        executablePath: localconfig.chromeExecutable
+        executablePath: localconfig.chromeExecutable,
         // slowMo: 1000,
         // headless: false
       })
