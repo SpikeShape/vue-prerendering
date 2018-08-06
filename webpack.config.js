@@ -7,6 +7,7 @@ const PrerenderSpaPlugin = require('prerender-spa-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const localconfig = require('./localconf');
 
@@ -44,7 +45,8 @@ module.exports = {
       }
     ], {
       copyUnmodified: true
-    })
+    }),
+    new SpriteLoaderPlugin()
   ],
   module: {
     rules: [
@@ -82,6 +84,18 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              extract: true,
+              publicPath: path.resolve(paths.DIST, './assets/img/svg/svg-sprite.svg')
+            }
+          }
+        ]
       }
     ]
   },

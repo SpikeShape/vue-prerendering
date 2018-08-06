@@ -2,6 +2,9 @@ import Vue from 'vue';
 import routes from './routes.private';
 import './components/main.css';
 
+const files = require.context('./components/app/icon/img', false, /.*\.svg$/);
+files.keys().forEach(files);
+
 new Vue({
   el: '#app',
   computed: {
