@@ -91,8 +91,7 @@ module.exports = {
           {
             loader: 'svg-sprite-loader',
             options: {
-              extract: true,
-              publicPath: path.resolve(paths.DIST, './assets/img/svg/svg-sprite.svg')
+              extract: true
             }
           }
         ]
