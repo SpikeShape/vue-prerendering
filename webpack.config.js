@@ -91,7 +91,6 @@ module.exports = {
           {
             loader: 'svg-sprite-loader',
             options: {
-              extract: true
             }
           }
         ]
