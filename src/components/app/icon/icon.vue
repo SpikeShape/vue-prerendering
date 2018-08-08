@@ -7,21 +7,11 @@
 </template>
 
 <script>
-  import iconTypes from '../icon/icon-types.js';
-
   const files = require.context('./img', false, /.*\.svg$/);
   files.keys().forEach(files);
 
   export default {
     name: 'icon',
-    data() {
-      return {
-        iconTypes: iconTypes.map(icon => ({
-          type: icon.type,
-          name: icon.name
-        })),
-      }
-    },
     props: {
       type: String,
     },
