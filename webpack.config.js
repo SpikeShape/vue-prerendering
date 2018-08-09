@@ -87,6 +87,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
+				include: path.join(paths.SRC, 'components/app/icon/img/'),
         use: [
           {
             loader: 'svg-sprite-loader',
