@@ -92,6 +92,8 @@ module.exports = {
           {
             loader: 'svg-sprite-loader',
             options: {
+              extract: true,
+              spriteFilename: '/assets/img/svg-sprite.svg',
             }
           }
         ]
