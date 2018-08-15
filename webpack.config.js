@@ -31,6 +31,10 @@ module.exports = {
     new CleanWebpackPlugin('dist', {
       root: process.cwd()
     }),
+    new HtmlWebpackPlugin({
+      template: path.join(paths.SRC, 'index.html'),
+      inject: false
+    }),
     new ExtractTextPlugin('./assets/styles/styles.css'),
     new CopyWebpackPlugin([
       { // styling images
@@ -140,10 +144,6 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(paths.SRC, 'index.html'),
-      inject: false
     }),
     new PrerenderSpaPlugin({
       staticDir: paths.DIST,

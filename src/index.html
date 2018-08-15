@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="/assets/styles/styles.css" />
   </head>
   <body>
+    <div style="display: none;">
+      <% if (htmlWebpackPlugin.files.sprites) { %>
+        <% for (var spriteFileName in htmlWebpackPlugin.files.sprites) { %>
+          <%= htmlWebpackPlugin.files.sprites[spriteFileName] %>
+        <% } %>
+      <% } %>
+    </div>
     <div id="app"></div>
 
     <!-- START: only for frontend -->
