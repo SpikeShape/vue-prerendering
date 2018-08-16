@@ -1,0 +1,14 @@
+.icon {
+  display: inline-block;
+  line-height: 1;
+  max-height: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+
+  svg {
+    fill: currentColor;
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+  }
+}

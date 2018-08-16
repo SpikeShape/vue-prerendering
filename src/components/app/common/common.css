@@ -1,0 +1,11 @@
+:root {
+  --bg: orange;
+}
+
+body {
+  background-color: var(--bg);
+
+  li {
+    border-bottom: 1px solid blue;
+  }
+}

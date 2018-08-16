@@ -1,13 +1,3 @@
-@import './app/vlink/_vlink.css';
-
-:root {
-  --bg: orange;
-}
-
-body {
-  background-color: var(--bg);
-
-  li {
-    border-bottom: 1px solid blue;
-  }
-}
+@import './app/common/common.css';
+@import './app/vlink/vlink.css';
+@import './app/icon/icon.css';
