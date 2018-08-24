@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Logo></Logo>
     <ul>
       <li>
         <v-link href="/">Home</v-link>
@@ -18,12 +19,14 @@
 
 <script>
   import VLink from '../components/app/vlink/vlink.vue'
+  import Logo from '../components/app/logo/logo.vue'
 
   import '../components/main.css'
 
   export default {
     components: {
-      VLink
+      VLink,
+      Logo
     }
   }
 </script>

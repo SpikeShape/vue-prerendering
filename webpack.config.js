@@ -72,8 +72,16 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
+          transformToRequire: {
+            // use for vector:src
+            vector: 'src',
+            // img:src & image:xlink:href url transform (vue default)
+            // https://github.com/vuejs/vue-loader/blob/master/docs/en/options.md
+            img: 'src', image: 'xlink:href'
+          },
           loaders: {
           }
+
           // other vue-loader options go here
         }
       },
@@ -101,6 +109,10 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
       }
     ]
   },
