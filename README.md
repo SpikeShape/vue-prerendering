@@ -1,6 +1,6 @@
 # Vue prerendering
 
-A frontend development toolchain to create component-based websites using Vue.js and Webpack.
+A frontend development toolchain to create component-based websites using Vue.js, Webpack and Babel.
 While development is happening in real time using hot reloading the `build` task is used to export all specified website routes to static HTML, CSS and JavaScript files.
 
 
