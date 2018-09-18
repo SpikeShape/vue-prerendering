@@ -120,6 +120,7 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       // JQuery: './node_modules/jquery/dist/jquery.min.js',
+      '@': paths.SRC
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
