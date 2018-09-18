@@ -112,6 +112,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
+        exclude: path.join(paths.SRC, 'components/app/icon/img/'),
         loader: 'svg-inline-loader',
       }
     ]
