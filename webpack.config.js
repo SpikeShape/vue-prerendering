@@ -3,8 +3,8 @@ const webpack = require('webpack');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PrerenderSpaPlugin = require('prerender-spa-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
@@ -135,13 +135,38 @@ module.exports = {
     hints: false
   },
   devtool: '#eval-source-map'
+};
+
+if (process.env.NODE_ENV === 'development') {
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"'
+      }
+    }),
+    new HtmlReplaceWebpackPlugin([
+      {
+        pattern: /<!-- nojs test -->/i,
+        replacement: `<script type="text/javascript">
+                        var html_node = document.getElementsByTagName("html")[0];
+                        html_node.className =
+                        html_node.className.replace( /(?:^|\\s)no-js(?!\\S)/g , ' js');
+                      </script>`
+      },
+      {
+        pattern: /<!-- main js -->/i,
+        replacement: `<script src="/assets/js/main.js"></script>`
+      }
+    ])
+  ]);
 }
 
 if (process.env.NODE_ENV === 'production') {
+  const PrerenderSpaPlugin = require('prerender-spa-plugin');
   const Renderer = PrerenderSpaPlugin.PuppeteerRenderer;
   const publicRoutes = require('./src/routes.public');
 
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -161,14 +186,37 @@ if (process.env.NODE_ENV === 'production') {
     new PrerenderSpaPlugin({
       staticDir: paths.DIST,
       routes: publicRoutes,
-      postProcess (renderedRoute) {
+      postProcess (context) {
+        let html_content = context.html;
+
+        html_content = html_content.replace(
+          /<!-- nojs test -->/i,
+          `<script type="text/javascript">
+            var html_node = document.getElementsByTagName("html")[0];
+            html_node.className =
+            html_node.className.replace( /(?:^|\\s)no-js(?!\\S)/g , ' js');
+          </script>`
+        );
+
+        html_content = html_content.replace(
+          /<script src="\/assets\/js\/bundle\.js"><\/script>/i,
+          ''
+        );
+
+        html_content = html_content.replace(
+          /<!-- main js -->/i,
+          '<script src="/assets/js/main.js"></script>'
+        );
+
+        context.html = html_content;
+
         // Remove /index.html from the output path if the dir name ends with a .html file extension.
         // For example: /dist/dir/special.html/index.html -> /dist/dir/special.html
-        if (renderedRoute.route.endsWith('.html')) {
-          renderedRoute.outputPath = path.join(__dirname, 'dist', renderedRoute.route)
+        if (context.route.endsWith('.html')) {
+          context.outputPath = path.join(__dirname, 'dist', context.route)
         }
 
-        return renderedRoute
+        return context;
       },
       renderer: new Renderer({
         executablePath: localconfig.chromeExecutable,
