@@ -3,11 +3,12 @@ const webpack = require('webpack');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
-
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+
+const { VueLoaderPlugin } = require('vue-loader');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const localconfig = require('./localconf');
 
@@ -17,7 +18,6 @@ const paths = {
 };
 
 module.exports = {
-
   entry: {
     bundle: './src/index.js',
     main: './src/components/main.js',
@@ -35,7 +35,9 @@ module.exports = {
       template: path.join(paths.SRC, 'index.html'),
       inject: false
     }),
-    new ExtractTextPlugin('./assets/styles/styles.css'),
+    new MiniCssExtractPlugin({
+      filename: './assets/styles/styles.css'
+    }),
     new CopyWebpackPlugin([
       { // styling images
         from: path.join(paths.SRC, 'components/**/*.png'),
@@ -50,38 +52,32 @@ module.exports = {
     ], {
       copyUnmodified: true
     }),
-    new SpriteLoaderPlugin()
+    new SpriteLoaderPlugin(),
+    new VueLoaderPlugin()
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1
-              }
-            },
-            'postcss-loader'
-          ]
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          'postcss-loader'
+        ]
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          transformToRequire: {
+          transformAssetUrls: {
             // use for vector:src
             vector: 'src',
-            // img:src & image:xlink:href url transform (vue default)
-            // https://github.com/vuejs/vue-loader/blob/master/docs/en/options.md
-            img: 'src', image: 'xlink:href'
           },
-          loaders: {
-          }
-
           // other vue-loader options go here
         }
       },
@@ -99,7 +95,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-				include: path.join(paths.SRC, 'components/app/icon/img/'),
+        include: path.join(paths.SRC, 'components/app/icon/img/'),
         use: [
           {
             loader: 'svg-sprite-loader',
@@ -111,10 +107,10 @@ module.exports = {
         ]
       },
       {
-        test: /\.svg$/,
-        exclude: path.join(paths.SRC, 'components/app/icon/img/'),
-        loader: 'svg-inline-loader',
-      }
+      test: /\.svg$/,
+  exclude: path.join(paths.SRC, 'components/app/icon/img/'),
+  loader: 'svg-inline-loader',
+}
     ]
   },
   resolve: {
@@ -138,12 +134,8 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === 'development') {
+  module.exports.mode = 'development';
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"development"'
-      }
-    }),
     new HtmlReplaceWebpackPlugin([
       {
         pattern: /<!-- nojs test -->/i,
@@ -165,21 +157,21 @@ if (process.env.NODE_ENV === 'production') {
   const PrerenderSpaPlugin = require('prerender-spa-plugin');
   const Renderer = PrerenderSpaPlugin.PuppeteerRenderer;
   const publicRoutes = require('./src/routes.public');
+  const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
+  module.exports.mode = 'production';
   module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.optimization = {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      })
+    ]
+  };
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-        'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
