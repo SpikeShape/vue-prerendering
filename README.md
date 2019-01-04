@@ -34,4 +34,4 @@ There are two files to manage the website routes:
 | option        |  what it does  |
 | ------------- | -- |
 | ./routes.private.js | Maps URL paths (without .html) to .vue files located in `./src/pages` |
-| ./routes.public.js | Specifies the html pages the should be rendered when pre-rendering the page |
+| ./routes.public.js | Specifies the html pages that should be rendered when pre-rendering the page |
