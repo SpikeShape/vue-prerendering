@@ -1,3 +1,19 @@
 {
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "plugins": [
+    "html",
+    "flowtype-errors"
+  ],
+  "extends": [
+    "vue",
+    "eslint:recommended",
+    "plugin:flowtype/recommended"
+  ],
+  "rules": {
+    "semi": "off",
+    "no-console": "warn",
+    "flowtype/onlyFilesWithFlowAnnotation": true,
+    "flowtype/require-variable-type": true,
+    "flowtype-errors/show-errors": 2
+  }
 }
