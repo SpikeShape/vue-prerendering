@@ -1,7 +1,7 @@
 # Vue prerendering
 
 A frontend development toolchain to create component-based websites using Vue.js, Webpack and Babel.
-While development is happening in real time using hot reloading the `build` task is used to export all specified website routes to static HTML, CSS and JavaScript files.
+While development is happening in real time using hot reloading the `build` task is used to export all specified website routes to static HTML, CSS and JavaScript files. This is achieved by opening all configured HTML routes in a headless Chrome or Chromium and saving the resulting document.
 
 
 ## Build Setup
@@ -23,7 +23,7 @@ Duplicate `./localconf.template.js`, name it `./localconf.js` and change the set
 
 | option        |  what it does  | further details |
 | ------------- | -- | -- |
-| chromeExecutable | Local Chrome (or Chromeium) executable used to render all pages | must be absolute |
+| chromeExecutable | Local Chrome (or Chromium) executable used to render all pages | must be absolute |
 | devServerPort | The port your page will be served to when running the dev task |  |
 
 
