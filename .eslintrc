@@ -12,8 +12,17 @@
   "rules": {
     "semi": "off",
     "no-console": "warn",
-    "flowtype/onlyFilesWithFlowAnnotation": true,
-    "flowtype/require-variable-type": true,
-    "flowtype-errors/show-errors": 2
+    "flowtype/require-variable-type": [
+      2,
+      {
+        "excludeVariableMatch": "^_"
+      }
+    ],
+    "flowtype-errors/show-errors": 2,
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
   }
 }
