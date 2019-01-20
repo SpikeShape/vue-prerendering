@@ -3,13 +3,13 @@
     <Logo></Logo>
     <ul>
       <li>
-        <v-link href="/">Home</v-link>
+        <nav-link href="/">Home</nav-link>
       </li>
       <li>
-        <v-link href="/about">About</v-link>
+        <nav-link href="/about">About</nav-link>
       </li>
       <li>
-        <v-link href="/contact">contact</v-link>
+        <nav-link href="/contact">contact</nav-link>
       </li>
     </ul>
 
@@ -18,14 +18,14 @@
 </template>
 
 <script>
-  import VLink from '../components/app/vlink/vlink.vue'
+  import NavLink from '../components/app/_util/nav-link/nav-link'
   import Logo from '../components/app/logo/logo.vue'
 
   import '../components/main.css'
 
   export default {
     components: {
-      VLink,
+      NavLink,
       Logo
     }
   }

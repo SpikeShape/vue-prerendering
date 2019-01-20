@@ -1,6 +1,6 @@
-import Vlink from './app/vlink/vlink';
+import Common from './app/common/common';
 // import $ from 'JQuery';
 
-Vlink.init();
+Common.init();
 
 // console.log($('body'));

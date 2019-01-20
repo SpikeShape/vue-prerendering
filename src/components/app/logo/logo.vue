@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Vector from '../vector/vector'
+import Vector from '../_util/vector/vector'
 
 export default {
   components: {
