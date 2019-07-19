@@ -1,5 +1,5 @@
 {
-  "name": "vue-node-pr-test",
+  "name": "vue-prerendering",
   "description": "A Vue.js project",
   "version": "1.0.0",
   "author": "Spike Shape <dev@spike-shape.de>",
@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "lodash.template": "^4.5.0",
     "vue": "^2.5.21"
   },
   "browserslist": [
